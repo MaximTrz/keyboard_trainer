@@ -1,0 +1,11 @@
+.keyboard-panel{
+    display: flex;
+}
+
+.keyboard-panel__row{
+    display: flex;
+}
+
+.keyboard-panel__key{
+    margin-right: 10px;
+}
