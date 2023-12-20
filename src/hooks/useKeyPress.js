@@ -4,7 +4,11 @@ import { useEffect } from "react";
 export default function (keyBtn, fn) {
   useEffect(() => {
     function onPress(e) {
-      fn();
+      console.log(e.keyCode);
+      if (e.keyCode === keyBtn.keyKode) {
+        console.log(1);
+        fn();
+      }
     }
 
     window.addEventListener("keypress", onPress);

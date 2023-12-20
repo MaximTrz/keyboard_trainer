@@ -6,9 +6,11 @@ import KeyboardPanel from "./components/keyboard-panel";
 import Timer from "./components/timer";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import useKeyPress from "./hooks/useKeyPress";
 
 function App() {
   let [keys, setKeys] = useState(keysStub());
+  let keyPressed = useKeyPress(keys[0], () => {});
   let right = keys.filter((el) => el.hand === "right");
   let left = keys.filter((el) => el.hand === "left");
   return (
@@ -52,7 +54,7 @@ function keysStub() {
     {
       letter: "Ф",
       hand: "left",
-      keyKode: 13,
+      keyKode: 97,
       row: "center",
       active: true,
     },
