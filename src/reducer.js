@@ -36,6 +36,16 @@ const rootReducer = (
       let newTime = state.time;
       newTime--;
       return { ...state, time: newTime };
+    case "plusCorrect":
+      let newCorrect = state.correct;
+      newCorrect++;
+      return { ...state, correct: newCorrect };
+
+    case "plusErrors":
+      let newErrors = state.errors;
+      newErrors++;
+      return { ...state, errors: newErrors };
+
     default:
       return state;
   }
