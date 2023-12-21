@@ -32,6 +32,10 @@ const rootReducer = (
       });
       newKeysWithRnd[Number(action.payload)].active = true;
       return { ...state, keys: newKeysWithRnd };
+    case "Tick":
+      let newTime = state.time;
+      newTime--;
+      return { ...state, time: newTime };
     default:
       return state;
   }

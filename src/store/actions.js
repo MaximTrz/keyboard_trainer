@@ -10,3 +10,9 @@ export const setKey = (payload) => {
     payload,
   };
 };
+
+export const tick = (payload) => {
+  return {
+    type: "Tick",
+  };
+};

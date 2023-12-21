@@ -6,9 +6,8 @@ export default function (keyBtn, fn) {
     function onPress(e) {
       console.log(e.keyCode);
       if (e.keyCode === keyBtn.keyKode) {
-        console.log(1);
-        fn();
       }
+      fn();
     }
 
     window.addEventListener("keypress", onPress);

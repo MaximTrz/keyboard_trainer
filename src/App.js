@@ -13,10 +13,10 @@ import useKeyPress from "./hooks/useKeyPress";
 import { bindActionCreators } from "redux";
 import * as actions from "./store/actions";
 
-function App({ appData, next, rnd }) {
-  let { keys } = appData;
+function App({ appData, next, rnd, tickTime }) {
+  let { keys, time, started, scores, correct, errors } = appData;
 
-  let keyPressed = useKeyPress(keys[0], () => {});
+  let keyPressed = useKeyPress(keys[0], next);
   let right = keys.filter((el) => el.hand === "right");
   let left = keys.filter((el) => el.hand === "left");
 
@@ -35,16 +35,16 @@ function App({ appData, next, rnd }) {
           <div className="trainer__center">
             <div className="trainer__indicator"></div>
             <div className="trainer__timer">
-              <Timer time={180} />
+              <Timer time={time} />
             </div>
             <div className="trainer__points">
-              <Alert variant="primary">Баллов: {10}</Alert>
+              <Alert variant="primary">Баллов: {scores}</Alert>
             </div>
             <div className="trainer__correct">
-              <Alert variant="info">Правильных нажатий: {10}</Alert>
+              <Alert variant="info">Правильных нажатий: {correct}</Alert>
             </div>
             <div className="trainer__errors">
-              <Alert variant="danger">Ошибок: {10}</Alert>
+              <Alert variant="danger">Ошибок: {errors}</Alert>
             </div>
             <div className="trainer__start">
               <Button variant="danger" onClick={next}>
@@ -63,12 +63,13 @@ function App({ appData, next, rnd }) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  const { nextKey, setKey } = bindActionCreators(actions, dispatch);
+  const { nextKey, setKey, tick } = bindActionCreators(actions, dispatch);
   return {
     next: nextKey,
     rnd: (keyNumber) => {
       setKey(keyNumber);
     },
+    tickTime: tick,
   };
 };
 
