@@ -26,8 +26,12 @@ const rootReducer = (
       return { ...state, keys: newKeys };
 
     case "RandomKey":
-      console.log(action.payload);
-      return state;
+      let newKeysWithRnd = [...state.keys];
+      newKeysWithRnd.forEach((obj) => {
+        obj.active = false;
+      });
+      newKeysWithRnd[Number(action.payload)].active = true;
+      return { ...state, keys: newKeysWithRnd };
     default:
       return state;
   }
