@@ -1,18 +1,36 @@
 export const nextKey = () => {
   return {
-    type: "NextKey",
+    type: "nextKey",
   };
 };
 
 export const setKey = (payload) => {
   return {
-    type: "RandomKey",
+    type: "randomKey",
     payload,
   };
 };
 
 export const tick = (payload) => {
   return {
-    type: "Tick",
+    type: "tick",
+  };
+};
+
+export const plusCorrect = () => {
+  return {
+    type: "plusCorrect",
+  };
+};
+
+export const plusErrors = () => {
+  return {
+    type: "plusErrors",
+  };
+};
+
+export const chengeStart = () => {
+  return {
+    type: "chengeStart",
   };
 };

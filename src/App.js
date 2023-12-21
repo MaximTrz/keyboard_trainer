@@ -13,10 +13,52 @@ import useKeyPress from "./hooks/useKeyPress";
 import { bindActionCreators } from "redux";
 import * as actions from "./store/actions";
 
-function App({ appData, next, rnd, tickTime }) {
+function App({
+  appData,
+  next,
+  rnd,
+  tickTime,
+  start,
+  correctPress,
+  uncorrectPress,
+}) {
   let { keys, time, started, scores, correct, errors } = appData;
 
-  let keyPressed = useKeyPress(keys[0], next);
+  let gameIsOn = (time > 0) & started;
+
+  let checkPress = (key, keyPressed) => {
+    if (gameIsOn) {
+      let keys = keyPressed.keys.map((key) => key.toLowerCase());
+      if (keys.includes(key.toLowerCase())) {
+        correctPress();
+      } else {
+        uncorrectPress();
+      }
+      if (time < 10) {
+        randomKey();
+      } else {
+        next();
+      }
+    }
+  };
+
+  let launchingGame = () => {
+    if (!started) {
+      start();
+      const timerId = setInterval(() => {
+        if (time > 0) {
+          tickTime();
+        } else {
+          clearInterval(timerId);
+        }
+      }, 1000);
+    }
+  };
+
+  let curentKeyActive = keys.findIndex((key) => key.active === true);
+
+  useKeyPress(keys[curentKeyActive], checkPress);
+
   let right = keys.filter((el) => el.hand === "right");
   let left = keys.filter((el) => el.hand === "left");
 
@@ -47,7 +89,7 @@ function App({ appData, next, rnd, tickTime }) {
               <Alert variant="danger">Ошибок: {errors}</Alert>
             </div>
             <div className="trainer__start">
-              <Button variant="danger" onClick={next}>
+              <Button variant="danger" onClick={launchingGame}>
                 Старт
               </Button>
             </div>
@@ -63,11 +105,21 @@ function App({ appData, next, rnd, tickTime }) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  const { nextKey, setKey, tick } = bindActionCreators(actions, dispatch);
+  const { nextKey, setKey, tick, plusCorrect, plusErrors, chengeStart } =
+    bindActionCreators(actions, dispatch);
   return {
     next: nextKey,
     rnd: (keyNumber) => {
       setKey(keyNumber);
+    },
+    correctPress: () => {
+      plusCorrect();
+    },
+    uncorrectPress: () => {
+      plusErrors();
+    },
+    start: () => {
+      chengeStart();
     },
     tickTime: tick,
   };
