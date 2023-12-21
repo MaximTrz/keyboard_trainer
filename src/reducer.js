@@ -11,8 +11,22 @@ const rootReducer = (
 ) => {
   switch (action.type) {
     case "NextKey":
-      return state;
+      let newKeys = [...state.keys];
+      let currentActiveKey = newKeys.findIndex((key) => key.active === true);
+      newKeys.forEach((obj) => {
+        obj.active = false;
+      });
+      let newActiveIndex;
+      if (currentActiveKey === -1 || currentActiveKey === newKeys.length - 1) {
+        newActiveIndex = 0;
+      } else {
+        newActiveIndex = currentActiveKey + 1;
+      }
+      newKeys[newActiveIndex].active = true;
+      return { ...state, keys: newKeys };
+
     case "RandomKey":
+      console.log(action.payload);
       return state;
     default:
       return state;
