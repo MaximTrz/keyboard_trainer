@@ -11,7 +11,7 @@ export const setKey = (payload) => {
   };
 };
 
-export const tick = (payload) => {
+export const tick = () => {
   return {
     type: "tick",
   };
@@ -32,5 +32,19 @@ export const plusErrors = () => {
 export const chengeStart = () => {
   return {
     type: "chengeStart",
+  };
+};
+
+export const closeModal = () => {
+  return {
+    type: "setWindowDisplayed",
+    payload: false,
+  };
+};
+
+export const showModal = () => {
+  return {
+    type: "setWindowDisplayed",
+    payload: true,
   };
 };

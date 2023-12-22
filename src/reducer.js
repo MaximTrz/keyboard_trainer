@@ -1,14 +1,4 @@
-const rootReducer = (
-  state = {
-    keys: keysStub(),
-    started: false,
-    time: 20,
-    scores: 0,
-    correct: 0,
-    errors: 0,
-  },
-  action
-) => {
+const rootReducer = (state = { ...stub(), windowDisplayed: false }, action) => {
   switch (action.type) {
     case "nextKey":
       let newKeys = [...state.keys];
@@ -49,81 +39,94 @@ const rootReducer = (
       return { ...state, errors: newErrors };
 
     case "chengeStart":
-      return { ...state, started: true };
+      return { ...stub(), started: true, windowDisplayed: false };
+
+    case "reset":
+      return { ...stub(), windowDisplayed: false };
+
+    case "setWindowDisplayed":
+      return { ...state, windowDisplayed: action.payload };
 
     default:
       return state;
   }
 };
 
-function keysStub() {
-  return [
-    {
-      letter: "Ф",
-      hand: "left",
-      keyKodes: [97, 1092],
-      keys: ["a", "ф"],
-      row: "center",
-      active: true,
-    },
-    {
-      letter: "Ы",
-      hand: "left",
-      keyKodes: [115, 1099],
-      keys: ["ы", "s"],
-      row: "center",
-      active: false,
-    },
-    {
-      letter: "В",
-      hand: "left",
-      keyKodes: [100, 1074],
-      keys: ["d", "в"],
-      row: "center",
-      active: false,
-    },
-    {
-      letter: "А",
-      hand: "left",
-      keyKodes: [102, 1072],
-      keys: ["а", "f"],
-      row: "center",
-      active: false,
-    },
+function stub() {
+  return {
+    time: 20,
+    timeFromRnd: 10,
+    started: false,
+    correct: 0,
+    errors: 0,
+    keys: [
+      {
+        letter: "Ф",
+        hand: "left",
+        keyKodes: [97, 1092],
+        keys: ["a", "ф"],
+        row: "center",
+        active: false,
+      },
+      {
+        letter: "Ы",
+        hand: "left",
+        keyKodes: [115, 1099],
+        keys: ["ы", "s"],
+        row: "center",
+        active: false,
+      },
+      {
+        letter: "В",
+        hand: "left",
+        keyKodes: [100, 1074],
+        keys: ["d", "в"],
+        row: "center",
+        active: false,
+      },
+      {
+        letter: "А",
+        hand: "left",
+        keyKodes: [102, 1072],
+        keys: ["а", "f"],
+        row: "center",
+        active: false,
+      },
 
-    {
-      letter: "О",
-      hand: "right",
-      keyKodes: [106, 1086],
-      keys: ["j", "о"],
-      row: "center",
-      active: false,
-    },
-    {
-      letter: "Л",
-      hand: "right",
-      keyKodes: [107, 1083],
-      keys: ["л", "k"],
-      row: "center",
-      active: false,
-    },
-    {
-      letter: "Д",
-      hand: "right",
-      keyKodes: [108, 1076],
-      keys: ["l", "д"],
-      row: "center",
-      active: false,
-    },
-    {
-      letter: "Ж",
-      hand: "right",
-      keyKodes: [59, 1078],
-      keys: ["ж", ";"],
-      row: "center",
-      active: false,
-    },
-  ];
+      {
+        letter: "О",
+        hand: "right",
+        keyKodes: [106, 1086],
+        keys: ["j", "о"],
+        row: "center",
+        active: false,
+      },
+      {
+        letter: "Л",
+        hand: "right",
+        keyKodes: [107, 1083],
+        keys: ["л", "k"],
+        row: "center",
+        active: false,
+      },
+      {
+        letter: "Д",
+        hand: "right",
+        keyKodes: [108, 1076],
+        keys: ["l", "д"],
+        row: "center",
+        active: false,
+      },
+      {
+        letter: "Ж",
+        hand: "right",
+        keyKodes: [59, 1078],
+        keys: ["ж", ";"],
+        row: "center",
+        active: false,
+      },
+    ],
+  };
 }
 
 export default rootReducer;
