@@ -6,7 +6,7 @@ export const nextKey = () => {
 
 export const setKey = (payload) => {
   return {
-    type: "randomKey",
+    type: "setKey",
     payload,
   };
 };

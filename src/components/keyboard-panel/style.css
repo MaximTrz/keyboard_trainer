@@ -1,11 +1,31 @@
 .keyboard-panel{
     display: flex;
+    flex-direction: column;    
 }
 
 .keyboard-panel__row{
-    display: flex;
+   margin-bottom: 20px;
 }
+
+.keyboard-panel__row_top-left{
+    transform: translateX(-65px);
+}
+
+.keyboard-panel__row_bottom-left{
+    transform: translateX(40px);
+}
+
 
 .keyboard-panel__key{
     margin-right: 10px;
+}
+
+.keyboard-panel__row_transform-left{
+    transform: translateX(-40px);
+      
+}
+
+.keyboard-panel__row_transform-right{
+   
+    transform: translateX(40px);    
 }

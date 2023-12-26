@@ -1,3 +1,7 @@
 .letter-button_active{
     border-bottom: 5px solid orange !important;
 }
+
+.letter-button_opacity{
+    opacity: .3;
+}

@@ -1,7 +1,9 @@
 const rootReducer = (state = { ...stub(), windowDisplayed: false }, action) => {
+  let members = state.keys.filter((key) => key.member);
+  let oldKeys = state.keys;
   switch (action.type) {
     case "nextKey":
-      let newKeys = [...state.keys];
+      let newKeys = [...members];
       let currentActiveKey = newKeys.findIndex((key) => key.active === true);
       newKeys.forEach((obj) => {
         obj.active = false;
@@ -12,16 +14,33 @@ const rootReducer = (state = { ...stub(), windowDisplayed: false }, action) => {
       } else {
         newActiveIndex = currentActiveKey + 1;
       }
-      newKeys[newActiveIndex].active = true;
-      return { ...state, keys: newKeys };
 
-    case "randomKey":
-      let newKeysWithRnd = [...state.keys];
+      newKeys[newActiveIndex].active = true;
+
+      oldKeys = oldKeys.map((oldKey) => {
+        const matchingNewKey = newKeys.find(
+          (newKey) => newKey.letter === oldKey.letter
+        );
+        return matchingNewKey ? matchingNewKey : oldKey;
+      });
+
+      return { ...state, keys: oldKeys };
+
+    case "setKey":
+      let newKeysWithRnd = [...members];
       newKeysWithRnd.forEach((obj) => {
         obj.active = false;
       });
       newKeysWithRnd[Number(action.payload)].active = true;
-      return { ...state, keys: newKeysWithRnd };
+
+      oldKeys = oldKeys.map((oldKey) => {
+        const matchingNewKey = newKeysWithRnd.find(
+          (newKey) => newKey.letter === oldKey.letter
+        );
+        return matchingNewKey ? matchingNewKey : oldKey;
+      });
+
+      return { ...state, keys: oldKeys };
 
     case "tick":
       let newTime = state.time;
@@ -61,12 +80,105 @@ function stub() {
     errors: 0,
     keys: [
       {
+        letter: "Й",
+        hand: "left",
+        keyKodes: [97, 1092],
+        keys: ["q", "й"],
+        row: "top",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "Ц",
+        hand: "left",
+        keyKodes: [97, 1092],
+        keys: ["q", "й"],
+        row: "top",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "У",
+        hand: "left",
+        keyKodes: [97, 1092],
+        keys: ["q", "й"],
+        row: "top",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "К",
+        hand: "left",
+        keyKodes: [97, 1092],
+        keys: ["q", "й"],
+        row: "top",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "Е",
+        hand: "left",
+        keyKodes: [97, 1092],
+        keys: ["q", "й"],
+        row: "top",
+        active: false,
+        member: false,
+      },
+
+      {
+        letter: "Я",
+        hand: "left",
+        keyKodes: [97, 1092],
+        keys: ["q", "й"],
+        row: "bottom",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "Ч",
+        hand: "left",
+        keyKodes: [97, 1092],
+        keys: ["q", "й"],
+        row: "bottom",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "С",
+        hand: "left",
+        keyKodes: [97, 1092],
+        keys: ["q", "й"],
+        row: "bottom",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "М",
+        hand: "left",
+        keyKodes: [97, 1092],
+        keys: ["q", "й"],
+        row: "bottom",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "И",
+        hand: "left",
+        keyKodes: [97, 1092],
+        keys: ["q", "й"],
+        row: "bottom",
+        active: false,
+        member: false,
+      },
+
+      {
         letter: "Ф",
         hand: "left",
         keyKodes: [97, 1092],
         keys: ["a", "ф"],
         row: "center",
         active: false,
+        member: true,
       },
       {
         letter: "Ы",
@@ -75,6 +187,7 @@ function stub() {
         keys: ["ы", "s"],
         row: "center",
         active: false,
+        member: true,
       },
       {
         letter: "В",
@@ -83,6 +196,7 @@ function stub() {
         keys: ["d", "в"],
         row: "center",
         active: false,
+        member: true,
       },
       {
         letter: "А",
@@ -91,6 +205,96 @@ function stub() {
         keys: ["а", "f"],
         row: "center",
         active: false,
+        member: true,
+      },
+      {
+        letter: "П",
+        hand: "left",
+        keyKodes: [102, 1072],
+        keys: ["а", "f"],
+        row: "center",
+        active: false,
+        member: false,
+      },
+
+      {
+        letter: "Н",
+        hand: "right",
+        keyKodes: [107, 1083],
+        keys: ["н", "y"],
+        row: "top",
+        active: false,
+        member: false,
+      },
+
+      {
+        letter: "Г",
+        hand: "right",
+        keyKodes: [107, 1083],
+        keys: ["u", "г"],
+        row: "top",
+        active: false,
+        member: false,
+      },
+
+      {
+        letter: "Ш",
+        hand: "right",
+        keyKodes: [107, 1083],
+        keys: ["ш", "u"],
+        row: "top",
+        active: false,
+        member: false,
+      },
+
+      {
+        letter: "Щ",
+        hand: "right",
+        keyKodes: [107, 1083],
+        keys: ["щ", "o"],
+        row: "top",
+        active: false,
+        member: false,
+      },
+
+      {
+        letter: "З",
+        hand: "right",
+        keyKodes: [107, 1083],
+        keys: ["з", "p"],
+        row: "top",
+        active: false,
+        member: false,
+      },
+
+      {
+        letter: "Х",
+        hand: "right",
+        keyKodes: [107, 1083],
+        keys: ["х", "["],
+        row: "top",
+        active: false,
+        member: false,
+      },
+
+      {
+        letter: "Ъ",
+        hand: "right",
+        keyKodes: [107, 1083],
+        keys: ["ъ", "]"],
+        row: "top",
+        active: false,
+        member: false,
+      },
+
+      {
+        letter: "Р",
+        hand: "right",
+        keyKodes: [107, 1083],
+        keys: ["h", "р"],
+        row: "center",
+        active: false,
+        member: false,
       },
 
       {
@@ -100,7 +304,9 @@ function stub() {
         keys: ["j", "о"],
         row: "center",
         active: false,
+        member: true,
       },
+
       {
         letter: "Л",
         hand: "right",
@@ -108,6 +314,7 @@ function stub() {
         keys: ["л", "k"],
         row: "center",
         active: false,
+        member: true,
       },
       {
         letter: "Д",
@@ -116,6 +323,7 @@ function stub() {
         keys: ["l", "д"],
         row: "center",
         active: false,
+        member: true,
       },
       {
         letter: "Ж",
@@ -124,6 +332,61 @@ function stub() {
         keys: ["ж", ";"],
         row: "center",
         active: false,
+        member: true,
+      },
+      {
+        letter: "Э",
+        hand: "right",
+        keyKodes: [59, 1078],
+        keys: ["э", "'"],
+        row: "center",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "Т",
+        hand: "right",
+        keyKodes: [59, 1078],
+        keys: ["n", "т"],
+        row: "bottom",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "Ь",
+        hand: "right",
+        keyKodes: [59, 1078],
+        keys: ["ь", "m"],
+        row: "bottom",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "Б",
+        hand: "right",
+        keyKodes: [59, 1078],
+        keys: ["б", ","],
+        row: "bottom",
+        active: false,
+        member: false,
+      },
+      {
+        letter: "Ю",
+        hand: "right",
+        keyKodes: [59, 1078],
+        keys: ["ю", "."],
+        row: "bottom",
+        active: false,
+        member: false,
+      },
+      {
+        letter: ".",
+        hand: "right",
+        keyKodes: [59, 1078],
+        keys: [".", "/"],
+        row: "bottom",
+        active: false,
+        member: false,
       },
     ],
   };

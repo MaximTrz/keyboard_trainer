@@ -78,11 +78,13 @@ function App({
   let left = keys.filter((el) => el.hand === "left");
 
   const randomKey = () => {
-    let curentKeyActive = keys.findIndex((k) => k.active === true);
-    let randomValue = Math.floor(Math.random() * keys.length);
+    let memberKeys = keys.filter((key) => key.member);
+
+    let curentKeyActive = memberKeys.findIndex((k) => k.active === true);
+    let randomValue = Math.floor(Math.random() * memberKeys.length);
 
     while (randomValue === curentKeyActive) {
-      randomValue = Math.floor(Math.random() * keys.length);
+      randomValue = Math.floor(Math.random() * memberKeys.length);
     }
 
     rnd(randomValue);
@@ -108,7 +110,7 @@ function App({
       <div className="container">
         <div className="trainer">
           <div className="trainer__left">
-            <KeyboardPanel keys={left} />
+            <KeyboardPanel keys={left} hand={"left"} />
           </div>
           <div className="trainer__center">
             <div className="trainer__indicator"></div>
@@ -134,7 +136,7 @@ function App({
           </div>
 
           <div className="trainer__right">
-            <KeyboardPanel keys={right} />
+            <KeyboardPanel keys={right} hand={"right"} />
           </div>
         </div>
       </div>
