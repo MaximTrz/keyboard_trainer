@@ -2,7 +2,8 @@ import React from "react";
 import Alert from "react-bootstrap/Alert";
 import "./style.css";
 
-function LetterButton({ letter, active, member }) {
+function LetterButton({ keyBtn }) {
+  let { letter, active, member } = keyBtn;
   let classNames = active
     ? "letter-button letter-button_active mb-0"
     : "letter-button mb-0";
@@ -11,7 +12,7 @@ function LetterButton({ letter, active, member }) {
   }
   return (
     <Alert variant="primary" className={classNames}>
-      {letter}
+      {letter.toUpperCase()}
     </Alert>
   );
 }

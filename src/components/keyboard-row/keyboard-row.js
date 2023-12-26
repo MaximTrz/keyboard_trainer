@@ -5,13 +5,9 @@ import "./style.css";
 function KeyboardRow({ buttons }) {
   return (
     <div className={`keyboard-row`}>
-      {buttons.map((kButton) => (
-        <div key={kButton.letter} className="keyboard-row__key">
-          <LetterButton
-            letter={kButton.letter}
-            active={kButton.active}
-            member={kButton.member}
-          ></LetterButton>
+      {buttons.map((keyButton) => (
+        <div key={keyButton.letter} className="keyboard-row__key">
+          <LetterButton keyBtn={keyButton}></LetterButton>
         </div>
       ))}
     </div>
