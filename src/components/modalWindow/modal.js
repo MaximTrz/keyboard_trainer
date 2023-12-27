@@ -6,7 +6,7 @@ function ModalWindow({ show, handleClose, bodyText }) {
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Поздравляем!</Modal.Title>
+          <Modal.Title>C Новым Годом!!!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {bodyText}
