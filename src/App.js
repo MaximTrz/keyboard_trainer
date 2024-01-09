@@ -13,7 +13,7 @@ import Button from "react-bootstrap/Button";
 import useKeyPress from "./hooks/useKeyPress";
 
 import { bindActionCreators } from "redux";
-import * as actions from "./store/actions";
+import * as actions from "./store/toolKit/toolkitReducer";
 
 import ModalWindow from "./components/modalWindow";
 
@@ -29,7 +29,7 @@ function App({
   closeModalWindow,
 }) {
   let { keys, time, started, correct, errors, timeFromRnd, windowDisplayed } =
-    appData;
+    appData.toolkit;
 
   let gameIsOn = (time > 0) & started;
 
@@ -79,14 +79,11 @@ function App({
 
   const randomKey = () => {
     let memberKeys = keys.filter((key) => key.member);
-
     let curentKeyActive = memberKeys.findIndex((k) => k.active === true);
     let randomValue = Math.floor(Math.random() * memberKeys.length);
-
     while (randomValue === curentKeyActive) {
       randomValue = Math.floor(Math.random() * memberKeys.length);
     }
-
     rnd(randomValue);
   };
 

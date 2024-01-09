@@ -9,7 +9,9 @@ import { Provider } from "react-redux";
 import { createStore, bindActionCreators } from "redux";
 import rootReducer from "./reducer";
 
-const store = createStore(rootReducer);
+//const store = createStore(rootReducer);
+
+import { store } from "./store/toolKit";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
