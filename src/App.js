@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -32,7 +32,10 @@ function App({
 
   let gameIsOn = (time > 0) & started;
 
-  let members = appData.toolkit.keys.filter((key) => key.member);
+  const members = useMemo(
+    () => appData.toolkit.keys.filter((key) => key.member),
+    [appData.toolkit.keys]
+  );
 
   let checkPress = (key, keyPressed) => {
     if (gameIsOn) {
@@ -104,7 +107,7 @@ function App({
   const allTime = useRef(time);
 
   if (scores > 0) {
-    speed = Math.round(scores / (allTime.current / 60));
+    speed = Math.round(correct / (allTime.current / 60));
   }
 
   let message = `Скорость печати в этом упражнени составила ${speed} символов в минуту`;

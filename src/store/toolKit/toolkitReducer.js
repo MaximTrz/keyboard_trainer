@@ -14,15 +14,6 @@ export const reset = createAction("reset");
 export const setWindowDisplayed = createAction("setWindowDisplayed");
 export const clearActive = createAction("clearActive");
 
-const mapAllKeys = (state, newKeys) => {
-  return state.keys.map((oldKey) => {
-    const matchingNewKey = newKeys.find(
-      (newKey) => newKey.letter === oldKey.letter
-    );
-    return matchingNewKey ? matchingNewKey : oldKey;
-  });
-};
-
 export default createReducer(initialState, (builder) => {
   builder
     .addCase(clearActive, (state) => {
@@ -33,12 +24,8 @@ export default createReducer(initialState, (builder) => {
     })
     .addCase(setKey, (state, action) => {
       let members = state.keys.filter((key) => key.member);
-
       let newKeys = [...members];
-
       newKeys[Number(action.payload)].active = true;
-
-      mapAllKeys(state, members);
     })
     .addCase(tick, (state) => {
       state.time--;
