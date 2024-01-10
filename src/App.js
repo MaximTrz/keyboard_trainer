@@ -149,8 +149,7 @@ const mapDispatchToProps = (dispatch) => {
     plusCorrect,
     plusErrors,
     chengeStart,
-    showModal,
-    closeModal,
+    setWindowDisplayed,
   } = bindActionCreators(actions, dispatch);
   return {
     next: nextKey,
@@ -168,10 +167,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     tickTime: tick,
     showModalWindow: () => {
-      showModal();
+      setWindowDisplayed(true);
     },
     closeModalWindow: () => {
-      closeModal();
+      setWindowDisplayed(false);
     },
   };
 };

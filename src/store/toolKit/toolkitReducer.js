@@ -15,6 +15,15 @@ export const chengeStart = createAction("chengeStart");
 export const reset = createAction("reset");
 export const setWindowDisplayed = createAction("setWindowDisplayed");
 
+const mapAllKeys = (state, newKeys) => {
+  return state.keys.map((oldKey) => {
+    const matchingNewKey = newKeys.find(
+      (newKey) => newKey.letter === oldKey.letter
+    );
+    return matchingNewKey ? matchingNewKey : oldKey;
+  });
+};
+
 export default createReducer(initialState, (builder) => {
   builder
     .addCase(nextKey, (state) => {
@@ -37,12 +46,7 @@ export default createReducer(initialState, (builder) => {
 
       members[newActiveIndex].active = true;
 
-      allKeys = allKeys.map((oldKey) => {
-        const matchingNewKey = members.find(
-          (newKey) => newKey.letter === oldKey.letter
-        );
-        return matchingNewKey ? matchingNewKey : oldKey;
-      });
+      allKeys = mapAllKeys(state, members);
     })
     .addCase(setKey, (state, action) => {
       let members = state.keys.filter((key) => key.member);
@@ -54,12 +58,7 @@ export default createReducer(initialState, (builder) => {
 
       newKeys[Number(action.payload)].active = true;
 
-      allKeys = allKeys.map((oldKey) => {
-        const matchingNewKey = newKeys.find(
-          (newKey) => newKey.letter === oldKey.letter
-        );
-        return matchingNewKey ? matchingNewKey : oldKey;
-      });
+      allKeys = mapAllKeys(state, members);
     })
     .addCase(tick, (state) => {
       let newTime = state.time;
@@ -89,8 +88,8 @@ export default createReducer(initialState, (builder) => {
 
 function stub() {
   return {
-    time: 300,
-    timeFromRnd: 150,
+    time: 30,
+    timeFromRnd: 15,
     started: false,
     correct: 0,
     errors: 0,
