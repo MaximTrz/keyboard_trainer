@@ -24,8 +24,7 @@ export default createReducer(initialState, (builder) => {
     })
     .addCase(setKey, (state, action) => {
       let members = state.keys.filter((key) => key.member);
-      let newKeys = [...members];
-      newKeys[Number(action.payload)].active = true;
+      members[Number(action.payload)].active = true;
     })
     .addCase(tick, (state) => {
       state.time--;
