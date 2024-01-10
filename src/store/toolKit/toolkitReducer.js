@@ -5,7 +5,6 @@ const initialState = {
   windowDisplayed: false,
 };
 
-export const nextKey = createAction("nextKey");
 export const setKey = createAction("setKey");
 export const tick = createAction("tick");
 export const plusCorrect = createAction("plusCorrect");
@@ -32,34 +31,10 @@ export default createReducer(initialState, (builder) => {
         obj.active = false;
       });
     })
-    .addCase(nextKey, (state) => {
-      let members = state.keys.filter((key) => key.member);
-
-      let currentActiveKey = members.findIndex((key) => key.active === true);
-
-      members.forEach((obj) => {
-        obj.active = false;
-      });
-
-      let newActiveIndex;
-
-      if (currentActiveKey === -1 || currentActiveKey === members.length - 1) {
-        newActiveIndex = 0;
-      } else {
-        newActiveIndex = currentActiveKey + 1;
-      }
-
-      members[newActiveIndex].active = true;
-
-      mapAllKeys(state, members);
-    })
     .addCase(setKey, (state, action) => {
       let members = state.keys.filter((key) => key.member);
 
       let newKeys = [...members];
-      newKeys.forEach((obj) => {
-        obj.active = false;
-      });
 
       newKeys[Number(action.payload)].active = true;
 

@@ -19,8 +19,7 @@ import ModalWindow from "./components/modalWindow";
 
 function App({
   appData,
-  next,
-  rnd,
+  setKey,
   tickTime,
   start,
   correctPress,
@@ -33,6 +32,8 @@ function App({
 
   let gameIsOn = (time > 0) & started;
 
+  let members = appData.toolkit.keys.filter((key) => key.member);
+
   let checkPress = (key, keyPressed) => {
     if (gameIsOn) {
       let keys = keyPressed.keys.map((key) => key.toLowerCase());
@@ -44,7 +45,18 @@ function App({
       if (time < timeFromRnd) {
         randomKey();
       } else {
-        next();
+        let currentActiveKey = members.findIndex((key) => key.active === true);
+        let newActiveIndex;
+
+        if (
+          currentActiveKey === -1 ||
+          currentActiveKey === members.length - 1
+        ) {
+          newActiveIndex = 0;
+        } else {
+          newActiveIndex = currentActiveKey + 1;
+        }
+        setKey(newActiveIndex);
       }
     }
   };
@@ -84,7 +96,7 @@ function App({
     while (randomValue === curentKeyActive) {
       randomValue = Math.floor(Math.random() * memberKeys.length);
     }
-    rnd(randomValue);
+    setKey(randomValue);
   };
 
   let scores = correct - errors > 0 ? correct - errors : 0;
@@ -143,7 +155,7 @@ function App({
 
 const mapDispatchToProps = (dispatch) => {
   const {
-    nextKey,
+    clearActive,
     setKey,
     tick,
     plusCorrect,
@@ -152,10 +164,8 @@ const mapDispatchToProps = (dispatch) => {
     setWindowDisplayed,
   } = bindActionCreators(actions, dispatch);
   return {
-    next: () => {
-      nextKey();
-    },
-    rnd: (keyNumber) => {
+    setKey: (keyNumber) => {
+      clearActive();
       setKey(keyNumber);
     },
     correctPress: () => {
