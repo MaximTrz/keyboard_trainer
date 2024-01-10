@@ -14,6 +14,7 @@ export const plusErrors = createAction("plusErrors");
 export const chengeStart = createAction("chengeStart");
 export const reset = createAction("reset");
 export const setWindowDisplayed = createAction("setWindowDisplayed");
+export const clearActive = createAction("clearActive");
 
 const mapAllKeys = (state, newKeys) => {
   return state.keys.map((oldKey) => {
@@ -26,6 +27,13 @@ const mapAllKeys = (state, newKeys) => {
 
 export default createReducer(initialState, (builder) => {
   builder
+    .addCase(clearActive, (state) => {
+      let members = state.keys.filter((key) => key.member);
+      members.forEach((obj) => {
+        obj.active = false;
+      });
+      console.log(1);
+    })
     .addCase(nextKey, (state) => {
       let members = state.keys.filter((key) => key.member);
       let allKeys = state.keys;

@@ -143,6 +143,7 @@ function App({
 
 const mapDispatchToProps = (dispatch) => {
   const {
+    clearActive,
     nextKey,
     setKey,
     tick,
@@ -152,7 +153,9 @@ const mapDispatchToProps = (dispatch) => {
     setWindowDisplayed,
   } = bindActionCreators(actions, dispatch);
   return {
-    next: nextKey,
+    next: () => {
+      nextKey();
+    },
     rnd: (keyNumber) => {
       setKey(keyNumber);
     },
