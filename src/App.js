@@ -143,7 +143,6 @@ function App({
 
 const mapDispatchToProps = (dispatch) => {
   const {
-    clearActive,
     nextKey,
     setKey,
     tick,

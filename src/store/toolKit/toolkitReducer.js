@@ -1,5 +1,4 @@
 import { createReducer, createAction } from "@reduxjs/toolkit";
-import produce from "immer";
 
 const initialState = {
   ...stub(),
@@ -32,11 +31,9 @@ export default createReducer(initialState, (builder) => {
       members.forEach((obj) => {
         obj.active = false;
       });
-      console.log(1);
     })
     .addCase(nextKey, (state) => {
       let members = state.keys.filter((key) => key.member);
-      let allKeys = state.keys;
 
       let currentActiveKey = members.findIndex((key) => key.active === true);
 
@@ -54,11 +51,11 @@ export default createReducer(initialState, (builder) => {
 
       members[newActiveIndex].active = true;
 
-      allKeys = mapAllKeys(state, members);
+      mapAllKeys(state, members);
     })
     .addCase(setKey, (state, action) => {
       let members = state.keys.filter((key) => key.member);
-      let allKeys = state.keys;
+
       let newKeys = [...members];
       newKeys.forEach((obj) => {
         obj.active = false;
@@ -66,22 +63,16 @@ export default createReducer(initialState, (builder) => {
 
       newKeys[Number(action.payload)].active = true;
 
-      allKeys = mapAllKeys(state, members);
+      mapAllKeys(state, members);
     })
     .addCase(tick, (state) => {
-      let newTime = state.time;
-      newTime--;
-      return { ...state, time: newTime };
+      state.time--;
     })
     .addCase(plusCorrect, (state) => {
-      let newCorrect = state.correct;
-      newCorrect++;
-      return { ...state, correct: newCorrect };
+      state.correct++;
     })
     .addCase(plusErrors, (state) => {
-      let newErrors = state.errors;
-      newErrors++;
-      return { ...state, errors: newErrors };
+      state.errors++;
     })
     .addCase(chengeStart, (state) => {
       return { ...stub(), started: true, windowDisplayed: false };
